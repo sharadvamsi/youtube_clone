@@ -9,10 +9,9 @@ const channelSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    videos:{
-        type:Array,
-        required:false,
-        default:[]
+    subscribers:{
+        type:Number,
+        required:true,
     }
 })
 

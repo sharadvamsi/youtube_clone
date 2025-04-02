@@ -18,7 +18,7 @@ const videoSchema = new mongoose.Schema({
         required:true
     },
     dislikes:{
-        type:String,
+        type:Number,
         required:true
     },
     description:{
