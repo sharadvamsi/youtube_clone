@@ -5,8 +5,10 @@ import dotenv from "dotenv"
 import videoRouter from "./routes/videoRoutes.js";
 import commentRouter from "./routes/commentRoute.js";
 import channelRouter from "./routes/channelRoute.js";
+import cors from "cors";
 
 const app = express();
+app.use(cors()); 
 //connecting to server 
 app.listen(1028,()=>{
     console.log("Connected to server on port 1028");

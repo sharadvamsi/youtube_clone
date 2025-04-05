@@ -10,7 +10,7 @@ import { getChannelNamebyId, getuserNamebyId } from '../helper.js';
 
 export const getAllVideos = async (req,res)=>{
 
-    const data = await videoModel.find({}).select('_id title duration thumbnail channelId views uploadDate');
+    const data = await videoModel.find({}).select('_id title duration thumbnail channelId views uploadDate videoUrl category');
 
     const updatedData = await getChannelNamebyId(data);
     
