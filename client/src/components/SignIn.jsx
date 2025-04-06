@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { getUserData } from "../redux/userSlice";
+import { getUserData, updateUserChannel } from "../redux/userSlice";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const body = { email, password };
     try {
@@ -23,17 +23,34 @@ const SignIn = () => {
         body: JSON.stringify(body),
       });
       const data = await response.json();
-
+  
       if (response.ok) {
         console.log("Login Success:", data);
-        dispatch(getUserData(data));
+  
+        // ✅ Only store in localStorage
         localStorage.setItem("userData", JSON.stringify(data[0]));
-        localStorage.setItem("userToken", data[1]);      
+        localStorage.setItem("userToken", data[1]);
+  
         toast.success("Login successful!");
+        dispatch(getUserData(data));
+        try {
+            const channelRes = await fetch("http://localhost:1028/channel/check", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `${data[1]}`,
+              },
+            });
+            const channelData = await channelRes.json();
+            if (channelRes.ok) {
+              dispatch(updateUserChannel(channelData));
+            }
+          } catch (err) {
+            console.error("Error fetching channel:", err);
+          }
         setTimeout(() => navigate("/"), 1500);
-        // Show success toast or redirect
       } else if (data?.message) {
-        toast.error(data.message);  // 👉 Show error toast
+        toast.error(data.message);
       } else {
         toast.error("Something went wrong.");
       }
@@ -42,6 +59,7 @@ const SignIn = () => {
       toast.error("Network error or server down.");
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 px-4">

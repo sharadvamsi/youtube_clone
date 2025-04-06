@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import youtubeLogo from "../assets/youtube-logo.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxAvatar } from "react-icons/rx";
 import { updateFilteredVideos, updateSideBar } from "../redux/videoSlice";
-import { getUserData, resetUserData, updateUserChannel } from "../redux/userSlice";
+import { getUserData, resetUserData } from "../redux/userSlice";
 import { isTokenExpired } from "../utils/helper.js";
-
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -15,7 +14,9 @@ const Header = () => {
   const user = useSelector((state) => state.user.userData);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const hasChannel = useSelector((state)=>state.user.userChannel);
+  const hasChannel = useSelector((state) => state.user.userChannel);
+    const navigate = useNavigate();
+ 
 
   const handleInput = (e) => {
     const text = e.target.value;
@@ -34,64 +35,20 @@ const Header = () => {
     localStorage.removeItem("userToken");
     dispatch(resetUserData());
     setDropdownOpen(false);
+    navigate("/");
   };
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("userData");
-    const storedToken = localStorage.getItem("userToken");
-  
-    const validateToken = async () => {
-      if (storedUser && storedToken) {
-        if (isTokenExpired(storedToken)) {
-          // Token is expired
-          localStorage.removeItem("userData");
-          localStorage.removeItem("userToken");
-          dispatch(resetUserData());
-        } else {
-          // Token exists and is not expired
-          try {
-            const res = await fetch("http://localhost:1028/channel/check", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `${storedToken}`,
-              },
-            });
-            const data = await res.json();
-            
-  
-            if (res.ok && user.length === 0) {
-              dispatch(getUserData([JSON.parse(storedUser), storedToken]));
-              dispatch(updateUserChannel(data))
 
-            } 
-            else if (!res.ok) {
-                // Token invalid at server level
-                localStorage.removeItem("userData");
-                localStorage.removeItem("userToken");
-                dispatch(resetUserData());
-              }
-          } catch (err) {
-            localStorage.removeItem("userData");
-            localStorage.removeItem("userToken");
-            dispatch(resetUserData());
-          }
-        }
-      }
-    };
-  
-    validateToken();
-  
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  
 
   return (
     <>
@@ -133,11 +90,19 @@ const Header = () => {
                 <div className="absolute right-0 mt-2 w-64 bg-[#1f1f1f] text-white rounded-lg shadow-lg overflow-hidden z-50">
                   <div className="px-4 py-3 border-b border-gray-700">
                     <p className="font-semibold">{user[0].userName}</p>
-                    {hasChannel.length > 0 &&<p className="text-sm text-gray-400">{hasChannel[0].channelName}</p>}
-                    <p className="text-sm text-blue-400 cursor-pointer">{hasChannel.length > 0? "View your channel":" Create channel"}</p>
+                    {hasChannel.length > 0 && <p className="text-sm text-gray-400">{hasChannel[0].channelName}</p>}
+                    <p className="text-sm text-blue-400 cursor-pointer">
+                      {hasChannel.length > 0 ? (
+                        <Link to="/channel">view your channel</Link>
+                      ) : (
+                        <Link to="/new-channel">Create channel</Link>
+                      )}
+                    </p>
                   </div>
                   <ul className="text-sm">
-                    <li onClick={handleSignOut} className="px-4 py-2 hover:bg-gray-700 cursor-pointer">Sign Out</li>
+                    <li onClick={handleSignOut} className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                      Sign Out
+                    </li>
                     <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">Appearance: Dark</li>
                     <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">Language</li>
                     <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">Settings</li>

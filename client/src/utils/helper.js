@@ -38,4 +38,10 @@ export const isTokenExpired = (token) => {
       return true; // invalid token
     }
   };
+
+  export const formatSubscribers = (num) => {
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M subscribers";
+    if (num >= 1_000) return (num / 1_000).toFixed(1).replace(/\.0$/, "") + "K subscribers";
+    return num + " subscribers";
+  };
   
