@@ -35,7 +35,6 @@ const Header = () => {
     localStorage.removeItem("userToken");
     dispatch(resetUserData());
     setDropdownOpen(false);
-    navigate("/");
   };
 
   useEffect(() => {
