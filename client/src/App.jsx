@@ -10,6 +10,7 @@ import NewChannel from "./components/NewChannel.jsx";
 import Channel from "./components/ChannelPage.jsx";
 import { isTokenExpired } from "./utils/helper.js";
 import { getUserData, resetUserData, updateUserChannel } from "./redux/userSlice.js";
+import VideoDetail from "./components/VideoDetail.jsx";
 
 const App = () =>{
   const dispatch = useDispatch()
@@ -75,6 +76,7 @@ const App = () =>{
         <Route path="/sign-up" element={<SignUp/>}/>
         <Route path="/new-channel" element={<NewChannel/>}/>
         <Route path="/channel" element={<Channel/>}/>
+        <Route path="/video/:id" element={<VideoDetail />} />
     </Routes>
     
     </BrowserRouter>

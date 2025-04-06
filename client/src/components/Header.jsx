@@ -56,7 +56,7 @@ const Header = () => {
         {/* Left: Logo and Sidebar */}
         <div className="flex items-center">
           <GiHamburgerMenu className="hidden xl:block text-white lg:w-[140px] lg:h-[30px]" onClick={handleSideBar} />
-          <img src={youtubeLogo} alt="youtube logo" className="md:w-[100px] lg:w-[140px] w-[90px]" />
+          <Link to="/"><img src={youtubeLogo} alt="youtube logo" className="md:w-[100px] lg:w-[140px] w-[90px]" /></Link>
         </div>
 
         {/* Middle: Search Bar */}

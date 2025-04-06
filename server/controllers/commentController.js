@@ -25,3 +25,9 @@ export const removeComment = async(req,res)=>{
     deleteComment? res.status(200).json({message:"Comment deleted succesfully"}):res.status(500).json({message:"Internal server error"})
 }
 
+export const getAllComments = async(req,res)=>{
+    const videoId = req.params.id;
+    const data = await commentModel.find({videoId});
+    res.status(200).json(data);
+}
+

@@ -36,6 +36,7 @@ export const getVideoDetails = async(req,res)=>{
 
     const response = {
         videoUrl: videoData[0].videoUrl,
+        channelId: videoData[0].channelId,
         title:videoData[0].title,
         channelName:channelData[0].channelName,
         likes:videoData[0].likes,

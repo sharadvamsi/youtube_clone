@@ -45,3 +45,8 @@ export const isTokenExpired = (token) => {
     return num + " subscribers";
   };
   
+  export const extractYouTubeId = (url) => {
+    const regExp = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&\n?#]+)/;
+    const match = url.match(regExp);
+    return match && match[1] ? match[1] : "";
+  };

@@ -8,6 +8,7 @@ import {
 } from "../utils/helper.js";
 import { updateChannelVideos } from "../redux/videoSlice.js";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Channel = () => {
   const isSidebarOpen = useSelector((state) => state.video.sideBarCondition);
@@ -85,6 +86,7 @@ const Channel = () => {
         {/* Video Grid Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 px-4 pb-6 w-[90%] xl:w-[80%] 2xl:w-[90%] mt-6 ml-6 md:ml-12">
         {channelVideos.map((video, index) => (
+            <Link to={`/video/${video._id}`} key={index}>
     <div key={index} className="bg-gray-800 rounded-lg overflow-hidden">
       
       {/* Thumbnail */}
@@ -114,7 +116,7 @@ const Channel = () => {
         </div>
       </div>
       
-    </div>
+    </div></Link>
   ))}
 
         </div>

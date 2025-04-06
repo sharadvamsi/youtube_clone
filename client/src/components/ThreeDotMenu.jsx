@@ -6,8 +6,8 @@ import { FaEllipsisV } from "react-icons/fa";
 const ThreeDotMenu = ({ video }) => {
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [title, setTitle] = useState(video.title);
-  const [description, setDescription] = useState(video.description);
+  const [title, setTitle] = useState(video.title || "");
+  const [description, setDescription] = useState(video.description || "");
   const menuRef = useRef(null);
 
   const userToken = useSelector((state) => state.user.userToken);

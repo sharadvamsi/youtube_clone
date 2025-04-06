@@ -2,6 +2,7 @@ import {  useDispatch, useSelector } from "react-redux";
 import SideBar from "./Sidebar";
 import { formatTimeAgo, formatViews } from "../utils/helper.js";
 import { updateFilteredVideos } from "../redux/videoSlice.js";
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -51,6 +52,7 @@ const Home = () => {
        {/* Video Grid Container (one grid for all cards) */}
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 px-4 pb-6 w-[90%]  xl:w-[80%] 2xl:w-[90%]  mt-6 ml-6 md:ml-12">
   {(filteredVideos.length > 0 ? filteredVideos:videoList).map((video, index) => (
+    <Link to={`/video/${video._id}`} key={index}>
     <div key={index} className="bg-gray-800 rounded-lg overflow-hidden">
       <div className="w-full h-40 bg-gray-700">
         <img
@@ -68,7 +70,7 @@ const Home = () => {
           {formatViews(video.views)} • {formatTimeAgo(video.uploadDate)}
         </p>
       </div>
-    </div>
+    </div></Link>
   ))}
 </div>
 
