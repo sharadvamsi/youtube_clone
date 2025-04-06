@@ -4,8 +4,7 @@ const videoSlice = createSlice({
     name:'videos',
     initialState:{
         allVideos:[],
-        popularBooks:[],
-        filteredBooks:[],
+        filteredVideos:[],
         categoriesList:["Music","Gaming","Sports","Entertainment","Comedy","News & Politics","Science & Technology","People & Blogs","Film & Animation"],
         sideBarCondition:false,
     },
@@ -15,12 +14,15 @@ const videoSlice = createSlice({
         },
         updateSideBar:(state,action)=>{
             state.sideBarCondition = !state.sideBarCondition
+        },
+        updateFilteredVideos:(state,action)=>{
+            state.filteredVideos = action.payload;
         }
     }
 });
 
 
-export const {getVideos,updateSideBar} = videoSlice.actions;
+export const {getVideos,updateSideBar,updateFilteredVideos} = videoSlice.actions;
 
 export default videoSlice.reducer;
 

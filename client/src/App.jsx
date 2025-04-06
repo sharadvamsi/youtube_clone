@@ -2,8 +2,10 @@ import Header from "./components/Header";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./components/Home";
 import { useDispatch } from "react-redux";
-import { getVideos } from "./utils/videoSlice.js";
+import { getVideos } from "./redux/videoSlice.js";
 import { useEffect } from "react";
+import SignIn from "./components/SignIn.jsx";
+import SignUp from "./components/SignUp.jsx";
 
 const App = () =>{
   const dispatch = useDispatch()
@@ -22,6 +24,8 @@ const App = () =>{
     <Header/>
     <Routes>
         <Route path="/" element = {<Home/>}/>
+        <Route path="/sign-in" element={<SignIn/>}/>
+        <Route path="/sign-up" element={<SignUp/>}/>
     </Routes>
     
     </BrowserRouter>

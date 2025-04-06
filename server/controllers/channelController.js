@@ -40,3 +40,8 @@ console.log(req.userId);
     res.status(201).json(newChannel);
     
 }
+
+export const getChananelByUserId = async(req,res)=>{
+    const data = await channelModel.find({userId:req.userId});
+    res.status(200).json(data);
+}

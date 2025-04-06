@@ -10,7 +10,7 @@ const SideBar = ({isSidebarOpen}) => {
     <>
        {/* Fully Expanded Sidebar for large screens */}
        {!isSidebarOpen && (
-        <div className="hidden md:flex flex-col bg-gray-700 text-white w-1/6 fixed top-[72px] left-0 h-[calc(100vh-72px)] p-2 space-y-2">
+       <div className="hidden xl:flex flex-col bg-gray-700 text-white w-1/6 fixed top-[72px] left-0 h-[calc(100vh-72px)] p-2 space-y-2">
           <div className="flex items-center gap-2 p-2 hover:bg-slate-900 rounded cursor-pointer">
             <MdHomeFilled className="text-xl" />
             <span>Home</span>
@@ -54,7 +54,7 @@ const SideBar = ({isSidebarOpen}) => {
 
       {/* Collapsed Sidebar (mimics mobile view) on large screen */}
       {isSidebarOpen && (
-        <div className="hidden md:flex flex-col items-center bg-gray-700 text-white w-[64px] fixed top-[72px] left-0 h-[calc(100vh-72px)] pt-4 space-y-6">
+       <div className="hidden xl:flex flex-col items-center bg-gray-700 text-white w-[69px] fixed top-[72px] left-0 h-[calc(100vh-72px)] pt-4 space-y-6">
           <div className="flex flex-col items-center text-xs">
             <MdHomeFilled className="text-xl mb-1" />
             <span>Home</span>
@@ -65,7 +65,7 @@ const SideBar = ({isSidebarOpen}) => {
           </div>
           <div className="flex flex-col items-center text-xs">
             <MdSubscriptions className="text-xl mb-1" />
-            <span>Subs</span>
+            <span>Subscriptions</span>
           </div>
           <div className="flex flex-col items-center text-xs">
             <SiYoutubemusic className="text-xl mb-1" />
@@ -75,7 +75,7 @@ const SideBar = ({isSidebarOpen}) => {
       )}
 
       {/* Mobile Bottom Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-[#0F0F0F] text-white flex justify-around py-2 border-t border-gray-700">
+      <div className="flex xl:hidden fixed bottom-0 left-0 w-full bg-[#0F0F0F] text-white justify-around py-2 border-t border-gray-700">
         <div className="flex flex-col items-center text-xs">
           <MdHomeFilled className="text-xl mb-1" />
           <span>Home</span>

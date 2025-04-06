@@ -1,41 +1,25 @@
-import {  useSelector } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 import SideBar from "./Sidebar";
+import { formatTimeAgo, formatViews } from "../utils/helper.js";
+import { updateFilteredVideos } from "../redux/videoSlice.js";
 
 
 const Home = () => {
   const isSidebarOpen = useSelector((state) => state.video.sideBarCondition);
   const videoList = useSelector((state) => state.video.allVideos);
   const categories = useSelector((state) => state.video.categoriesList);
+  const filteredVideos = useSelector((state)=>state.video.filteredVideos)
+
+  const dispatch = useDispatch();
+  const handleCategory=(category)=>{
+    const data = videoList.filter((video)=>video.category === category);
+    dispatch(updateFilteredVideos(data));
+  }
 
 
-  const formatViews = (views) => {
-    if (views >= 1_000_000) return (views / 1_000_000).toFixed(1) + 'M views';
-    if (views >= 1_000) return (views / 1_000).toFixed(1) + 'K views';
-    return views + ' views';
-  };
+  
 
-  const formatTimeAgo = (isoDate) => {
-    const now = new Date();
-    const posted = new Date(isoDate);
-    const diffInSeconds = Math.floor((now - posted) / 1000);
-  
-    const years = Math.floor(diffInSeconds / (60 * 60 * 24 * 365));
-    if (years > 0) return `${years} year${years > 1 ? 's' : ''} ago`;
-  
-    const months = Math.floor(diffInSeconds / (60 * 60 * 24 * 30));
-    if (months > 0) return `${months} month${months > 1 ? 's' : ''} ago`;
-  
-    const days = Math.floor(diffInSeconds / (60 * 60 * 24));
-    if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
-  
-    const hours = Math.floor(diffInSeconds / (60 * 60));
-    if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-  
-    const minutes = Math.floor(diffInSeconds / 60);
-    if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-  
-    return 'Just now';
-  };
+
   
 
   
@@ -45,25 +29,28 @@ const Home = () => {
 
       <div
         className={`flex flex-col transition-all duration-300 ${
-          isSidebarOpen ? "md:ml-[64px]" : "md:ml-[16.66%]"
+          isSidebarOpen ? "xl:ml-[64px]" : "xl:ml-[16.66%]"
         } w-full`}
       >
-        <div className="w-[90%]  overflow-x-auto whitespace-nowrap scrollbar-hidden p-4 ml-6 mt-24">
-          <div className="inline-flex space-x-2">
-            {categories.map((category) => (
-              <div
-                key={category}
-                className="bg-white font-semibold rounded-3xl px-4 py-2 cursor-pointer hover:bg-gray-600"
-              >
-                {category}
-              </div>
-            ))}
-          </div>
+       <div className="relative mt-24 px-4 ml-12 xl:w-[80%] 2xl:w-[90%]">
+  <div className="overflow-x-auto whitespace-nowrap scrollbar-hidden ">
+    <div className="inline-flex space-x-2">
+      {categories.map((category) => (
+        <div
+          key={category}
+          className="bg-white font-semibold rounded-3xl px-4 py-2 cursor-pointer hover:bg-gray-600" onClick={()=>handleCategory(category)}
+        >
+          {category}
         </div>
+      ))}
+    </div>
+  </div>
+</div>
+ 
 
        {/* Video Grid Container (one grid for all cards) */}
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2  xl:grid-cols-4 gap-6 px-4 pb-6 w-[80%] xl:w-[90%] mt-4 ml-12">
-  {videoList.map((video, index) => (
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 px-4 pb-6 w-[90%]  xl:w-[80%] 2xl:w-[90%]  mt-6 ml-6 md:ml-12">
+  {(filteredVideos.length > 0 ? filteredVideos:videoList).map((video, index) => (
     <div key={index} className="bg-gray-800 rounded-lg overflow-hidden">
       <div className="w-full h-40 bg-gray-700">
         <img

@@ -22,7 +22,7 @@ export const login = async(req,res)=>{
     const {password,...userDetails} = user.toObject(); // not sending password in response for security
    
     //if yes creating jwt token and sending it as response.
-    const token = jwt.sign(req.body,"secret",{expiresIn:"50m"});
+    const token = jwt.sign(req.body,"secret",{expiresIn:"1d"});
 
     res.status(200).json([userDetails,token]);
     
