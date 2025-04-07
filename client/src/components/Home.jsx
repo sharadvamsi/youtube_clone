@@ -3,7 +3,7 @@ import SideBar from "./Sidebar";
 import { formatTimeAgo, formatViews } from "../utils/helper.js";
 import { updateFilteredVideos } from "../redux/videoSlice.js";
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const Home = () => {
