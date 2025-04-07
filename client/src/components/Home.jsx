@@ -9,7 +9,8 @@ const Home = () => {
   const isSidebarOpen = useSelector((state) => state.video.sideBarCondition);
   const videoList = useSelector((state) => state.video.allVideos);
   const categories = useSelector((state) => state.video.categoriesList);
-  const filteredVideos = useSelector((state)=>state.video.filteredVideos)
+  const filteredVideos = useSelector((state)=>state.video.filteredVideos);
+  const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
   const handleCategory=(category)=>{
@@ -17,7 +18,11 @@ const Home = () => {
     dispatch(updateFilteredVideos(data));
   }
 
-
+  useEffect(() => {
+    if (videoList.length > 0) {
+      setLoading(false);
+    }
+  }, [videoList]);
   
 
 
@@ -51,7 +56,9 @@ const Home = () => {
 
        {/* Video Grid Container (one grid for all cards) */}
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 px-4 pb-6 w-[90%]  xl:w-[80%] 2xl:w-[90%]  mt-6 ml-6 md:ml-12">
-  {(filteredVideos.length > 0 ? filteredVideos:videoList).map((video, index) => (
+  {loading ? (
+    <p className="text-white text-lg">Loading videos...</p>
+  ) : ((filteredVideos.length > 0 ? filteredVideos:videoList).map((video, index) => (
     <Link to={`/video/${video._id}`} key={index}>
     <div key={index} className="bg-gray-800 rounded-lg overflow-hidden">
       <div className="w-full h-40 bg-gray-700">
@@ -71,7 +78,7 @@ const Home = () => {
         </p>
       </div>
     </div></Link>
-  ))}
+  )))}
 </div>
 
 
