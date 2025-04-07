@@ -15,7 +15,7 @@ const SignIn = () => {
     e.preventDefault();
     const body = { email, password };
     try {
-      const response = await fetch("http://localhost:1028/user/login", {
+      const response = await fetch("https://youtube-clone-backend-murex.vercel.app/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const SignIn = () => {
         toast.success("Login successful!");
         dispatch(getUserData(data));
         try {
-            const channelRes = await fetch("http://localhost:1028/channel/check", {
+            const channelRes = await fetch("https://youtube-clone-backend-murex.vercel.app/channel/check", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

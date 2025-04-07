@@ -15,7 +15,7 @@ const SignUp = () => {
     const body = { userName, email, password };
 
     try {
-      const response = await fetch("http://localhost:1028/user/register", {
+      const response = await fetch("https://youtube-clone-backend-murex.vercel.app/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

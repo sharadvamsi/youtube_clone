@@ -10,7 +10,7 @@ const NewChannel = () => {
     if (!channelName.trim()) return;
 
     try {
-      const res = await fetch("http://localhost:1028/channel/create", {
+      const res = await fetch("https://youtube-clone-backend-murex.vercel.app/channel/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -25,13 +25,13 @@ const ThreeDotMenu = ({ video }) => {
   }, []);
 
   const fetchUpdatedVideos = async () => {
-    const res = await fetch(`http://localhost:1028/channel/${channelData[0]._id}`);
+    const res = await fetch(`https://youtube-clone-backend-murex.vercel.app/channel/${channelData[0]._id}`);
     const data = await res.json();
     dispatch(updateChannelVideos(data));
   };
 
   const handleDelete = async () => {
-    await fetch(`http://localhost:1028/video/${video._id}`, {
+    await fetch(`https://youtube-clone-backend-murex.vercel.app/video/${video._id}`, {
       method: "DELETE",
       headers: {
         Authorization: userToken,
@@ -53,7 +53,7 @@ const ThreeDotMenu = ({ video }) => {
       return;
     }
   
-    await fetch(`http://localhost:1028/video/${video._id}`, {
+    await fetch(`https://youtube-clone-backend-murex.vercel.app/video/${video._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

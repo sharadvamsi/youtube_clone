@@ -23,7 +23,7 @@ const Channel = () => {
     if (channelData.length > 0) {
       const response = async () => {
         const api = await fetch(
-          `http://localhost:1028/channel/${channelData[0]._id}`
+          `https://youtube-clone-backend-murex.vercel.app/channel/${channelData[0]._id}`
         );
         const data = await api.json();
         dispatch(updateChannelVideos(data));

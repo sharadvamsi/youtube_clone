@@ -17,7 +17,7 @@ const App = () =>{
   const user = useSelector((state) => state.user.userData);
   useEffect(() => {
     const apiCall = async () => {
-      const response = await fetch("http://localhost:1028/video");
+      const response = await fetch("https://youtube-clone-backend-murex.vercel.app/video");
       const data = await response.json();
       console.log(data);
       dispatch(getVideos(data));
@@ -36,7 +36,7 @@ const App = () =>{
         } else {
           if (user.length === 0) {
             try {
-              const res = await fetch("http://localhost:1028/channel/check", {
+              const res = await fetch("https://youtube-clone-backend-murex.vercel.app/channel/check", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",

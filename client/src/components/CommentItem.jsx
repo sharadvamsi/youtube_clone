@@ -9,7 +9,7 @@ const CommentItem = ({ comment, userId, token, refreshComments }) => {
   const isOwner = comment.userId === userId;
 
   const handleDelete = async () => {
-    await fetch(`http://localhost:1028/comment/${comment._id}`, {
+    await fetch(`https://youtube-clone-backend-murex.vercel.app/comment/${comment._id}`, {
       method: "DELETE",
       headers: {
         Authorization: token,
@@ -19,7 +19,7 @@ const CommentItem = ({ comment, userId, token, refreshComments }) => {
   };
 
   const handleEdit = async () => {
-    await fetch(`http://localhost:1028/comment/${comment._id}`, {
+    await fetch(`https://youtube-clone-backend-murex.vercel.app/comment/${comment._id}`, {
       method: "PATCH",
       headers: {
         Authorization: token,

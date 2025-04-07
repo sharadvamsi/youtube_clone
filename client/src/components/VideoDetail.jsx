@@ -20,13 +20,13 @@ const VideoDetail = () => {
   const token = useSelector((state) => state.user.userToken);
 
   const fetchVideo = async () => {
-    const res = await fetch(`http://localhost:1028/video/${id}`);
+    const res = await fetch(`https://youtube-clone-backend-murex.vercel.app/video/${id}`);
     const data = await res.json();
     setVideo(data);
     setComments(data.comments);
 
     const related = await fetch(
-      `http://localhost:1028/channel/${data.channelId}`
+      `https://youtube-clone-backend-murex.vercel.app/channel/${data.channelId}`
     );
     const relatedData = await related.json();
     setRelatedVideos(relatedData);
@@ -100,7 +100,7 @@ const VideoDetail = () => {
               className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               onClick={async () => {
                 if (!newComment.trim()) return;
-                await fetch("http://localhost:1028/comment/add/", {
+                await fetch("https://youtube-clone-backend-murex.vercel.app/comment/add/", {
                   method: "POST",
                   headers: {
                     Authorization: token,
